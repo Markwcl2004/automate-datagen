@@ -2,6 +2,10 @@
 
 **Single-arm assembly data pipeline on Isaac Lab AutoMate.**
 
+<p align="center"><img src="docs/media/demo_00768.gif" width="760" alt="one episode, front camera (left) and wrist camera (right)"></p>
+<p align="center"><sub>One episode of task 00768: front D435 (left) and wrist D405 (right), played at 2× speed.
+Full-resolution videos: <a href="docs/media/demo_00768.mp4">00768</a> · <a href="docs/media/demo_00016.mp4">00016</a> · <a href="docs/media/demo_00293.mp4">00293</a></sub></p>
+
 This repository contains a simulation data pipeline for **full-process robotic assembly with a single Franka Panda arm**, built on NVIDIA Isaac Lab's [AutoMate](https://github.com/isaac-sim/IsaacLab) plug–socket tasks. Every episode starts at a fixed home pose, picks the plug up from the table, carries it to the socket, inserts it with a learned PPO policy, releases it, and returns home. The episode is recorded from two RealSense-like cameras with RGB, metric depth and per-frame metadata, then exported to **LeRobot v3**.
 
 The pipeline produced `automate_fullproc_20261004`:
