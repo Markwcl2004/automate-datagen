@@ -1,0 +1,443 @@
+{
+  "schema_version": "ourdata-diversity-1.1",
+  "artifact_kind": "complete_dataset",
+  "dataset_id": "franka_panda_single_arm-automate_fullproc_20261004-00016-mixed-sample5",
+  "robot_type": "franka_panda_single_arm",
+  "task": "00016",
+  "profile": "mixed",
+  "role": "synthetic",
+  "world_frame": "env",
+  "world_frame_note": "env: per-env origin on the floor plan, z up; state, action, object and camera poses all use it. Each env is an independent copy of the scene; the episode's T_world_env (pure translation env_origin_world_m, no rotation) maps it to the simulation world",
+  "world_axes": "right_handed_z_up",
+  "length_unit": "m",
+  "time_unit": "s",
+  "quaternion_order": "wxyz",
+  "camera_axes": "opencv",
+  "view_metric_axes": "opengl",
+  "camera_name_map": {
+    "observation.images.front": "front_d435",
+    "observation.images.wrist": "wrist_d405"
+  },
+  "state_indices": {
+    "left_xyz": [
+      0,
+      1,
+      2
+    ],
+    "right_xyz": [
+      0,
+      1,
+      2
+    ],
+    "left_gripper": 7,
+    "right_gripper": 7,
+    "note": "single-arm Franka: the one arm is duplicated into both slots, so dual-arm sums computed from them (e.g. export_features.py total_ee_path_length = left + right) are 2x the true single-arm value; left_* and right_* displacement / gripper range are identical"
+  },
+  "action_semantics": "cartesian_pose_and_gripper_target",
+  "action_semantics_detail": "next_sample_single_arm_absolute_cartesian_pose_and_gripper_target; the last frame's action is the pose / gripper target of the terminal frame, which is not itself recorded",
+  "eef_pose_frame": "env",
+  "eef_links": {
+    "arm": "panda_fingertip_centered"
+  },
+  "feature_units": {
+    "observation.state": [
+      "m",
+      "m",
+      "m",
+      "dimensionless",
+      "dimensionless",
+      "dimensionless",
+      "dimensionless",
+      "fraction_open"
+    ],
+    "action": [
+      "m",
+      "m",
+      "m",
+      "dimensionless",
+      "dimensionless",
+      "dimensionless",
+      "dimensionless",
+      "fraction_open"
+    ],
+    "observation.joint_state": "rad",
+    "observation.joint_velocity": "rad/s",
+    "observation.joint_effort": "N*m (measured joint torque)",
+    "observation.contact_force": "N, world z up; net contact force on each finger and on the plug (all partners)",
+    "observation.plug_pose": "m (xyz, env frame) + dimensionless (quaternion wxyz)",
+    "observation.socket_pose": "m (xyz, env frame) + dimensionless (quaternion wxyz)",
+    "observation.keypoint_error": "m (mean distance between the plug keypoints and their seated positions)",
+    "policy_action": "dimensionless in [-1, 1]: the insertion policy's action (position / rotation increments in the socket frame, scaled by the controller thresholds); zero outside the insert phase",
+    "phase_index": "index into phases.names (0 approach, 1 grasp, 2 lift, 3 carry, 4 insert, 5 release, 6 return)"
+  },
+  "gripper_definition": "state gripper_open = mean of the two finger joints / 0.04 m (0 closed, 1 fully open); action gripper = the commanded finger opening as the same fraction at the next frame: 1 open while approaching and releasing, the training opening (gripper_open_width / 0.04) while pre-closing, 0 closed from the close on through the insertion",
+  "depth_format": {
+    "container": "roboassemblybench_chunked_depth_v1: file header struct '<8sI' = magic b'RABDU16\\0' + version 1; then per frame a chunk header struct '<III' = (frame_index, uncompressed_size, compressed_size) followed by compressed_size bytes of one zstd frame",
+    "chunks[].offset": "byte offset of the frame's 12-byte chunk header (the zstd frame starts at offset + 12)",
+    "filter": "bitplane16_le: the zstd payload holds 16 bit planes (bit 0 first) of the frame's row-major uint16 samples, each plane packed with numpy packbits(bitorder='little'); it is NOT the bitshuffle library's blocked layout",
+    "values": "uint16 millimetres, 0 = invalid; depth = distance to the image plane (z in the camera optical frame)",
+    "reader": "decode: zstd-decompress, reshape to (16, ceil(N / 8)) bytes, unpackbits(bitorder='little')[:N] per plane, value |= bit << plane"
+  },
+  "rgb_present": true,
+  "depth_present": false,
+  "pointcloud_present": false,
+  "depth_note": "depth omitted in this sample export (--no-depth); the full dataset carries the depth sidecar described in depth_format",
+  "success_definition": "pick, carry and insertion reach the target (mean keypoint error < 0.003 m), the gripper opens, the arm returns to the fixed home pose, and the mean keypoint error is still < 0.003 m at the last frame; or, for episodes with success_rule = deeper_ok in episodes.jsonl, the deeper_ok rule in success_rules; only successful episodes are kept",
+  "success_rules": {
+    "keypoint": "pick, carry and insertion reach the target (mean keypoint error < 0.003 m), the gripper opens, the arm returns to the fixed home pose, and the mean keypoint error is still < 0.003 m at the last frame",
+    "deeper_ok": {
+      "out_m": 0.003,
+      "lateral_m": 0.003,
+      "tilt_deg": 5.0,
+      "rule": "for assemblies whose AutoMate goal pose has no physical stop (e.g. a sleeve on a post, a hole deeper than the goal): the target is reached (mean keypoint error < strict threshold) before the release, and at the last frame the plug base is at most 0.003 m out of the goal along the socket axis (any depth further in), at most 0.003 m off laterally and tilted at most 5.0 deg; the mean keypoint error at the last frame can then exceed the strict threshold"
+    }
+  },
+  "target_reached_definition": "a frame with mean keypoint error < 0.003 m (plug at its seated pose)",
+  "grasp_raise": {
+    "note": "episodes.jsonl grasp_raise_m: the nominal AutoMate grasp (plug_grasps.json) moved back by this distance along the fingertip approach axis, i.e. the fingertips grasp the plug that much higher, in the pick and in the policy's training reset; used on tasks whose original grasp is at or below the table surface",
+    "values_m_in_this_dataset": [
+      0.0
+    ]
+  },
+  "attachment_assist": {
+    "used": false,
+    "kind": "none: the plug is held by finger friction only (no attachment, welding or pose writes); after the insertion the gripper opens"
+  },
+  "phases": {
+    "names": [
+      "approach",
+      "grasp",
+      "lift",
+      "carry",
+      "insert",
+      "release",
+      "return"
+    ],
+    "control": {
+      "approach": "scripted",
+      "grasp": "scripted",
+      "lift": "scripted",
+      "carry": "scripted",
+      "insert": "policy",
+      "release": "scripted",
+      "return": "scripted"
+    },
+    "description": {
+      "approach": "home pose -> 8 cm above the policy grasp on the plug standing on the table -> down to the grasp pose, gripper fully open",
+      "grasp": "fingers to the training opening, then closed until they stop",
+      "lift": "8 cm up",
+      "carry": "up to the cruise height, over the socket, down to the policy start pose (plug 10 mm above the entrance, measured in-hand transform)",
+      "insert": "the insertion policy until the mean keypoint error is < strict_thresh",
+      "release": "gripper opens, fingertip held",
+      "return": "8 cm up, back to the home pose, still there for 0.5 s"
+    }
+  },
+  "control": {
+    "controller": "task-space impedance on the fingertip in every phase; insert: target = fingertip + scaled policy action (EMA-smoothed), action in the socket frame (D16); scripted phases: clipped targets toward waypoints",
+    "policy_fps": 15,
+    "pos_action_threshold_m": [
+      0.02,
+      0.02,
+      0.02
+    ],
+    "rot_action_threshold_rad": [
+      0.01,
+      0.01,
+      0.01
+    ],
+    "pos_action_bounds_m": [
+      0.1,
+      0.1,
+      0.1
+    ],
+    "ema_factor": 0.2,
+    "joint_commands": "not recorded (the controller outputs joint torques); measured joint states are in joint_state",
+    "orientation": {
+      "roll_pitch": "policy-controlled within 10.0 deg of upright (per-task unlock)",
+      "yaw": "policy-controlled",
+      "rot_action_threshold_rad": [
+        0.029999999329447746,
+        0.029999999329447746,
+        0.009999999776482582
+      ]
+    }
+  },
+  "pick_contact_check": {
+    "finger_up_contact_force_limit_n": 3.0,
+    "rule": "during approach and grasp, the upward (world +z) net contact force on the two fingers, summed, must stay <= the limit: a gripper pushed onto the table to reach the grasp fails the episode (finger_pressed_table, not kept); the episode's maximum is in metrics.pick.finger_up_contact_force_max_n"
+  },
+  "scripted_waypoints": {
+    "max_control_steps": 300,
+    "stall_window_control_steps": 15,
+    "descend_landing": {
+      "land_gain": 0.3,
+      "rule": "descent onto the plug: each control step moves at most land_gain x the remaining error (no jump to the goal), so the arm slows down as it arrives"
+    },
+    "stall_far_rate": 0.1,
+    "stall_min_progress_m_rad": [
+      0.0005,
+      0.005
+    ],
+    "stall_fail_m_rad": [
+      0.01,
+      0.1
+    ],
+    "rule": "approach / grasp / lift / carry run in lock step over the envs; an env outside the waypoint tolerance is stalled when over the window its error in motion steps (d / max_lin + ang / max_ang) dropped by less than stall_far_rate x window while still moving, or its position and angle errors both dropped by less than stall_min_progress near the waypoint; a stalled env is no longer waited for; stalled farther than stall_fail from the waypoint = the pick fails (servo_stalled, not kept)"
+  },
+  "scripted_waypoints_note": "episodes.jsonl descend_landing: the soft-landing descent (each control step moves at most land_gain x the remaining error, no jump to the goal) used by the episode, null for episodes collected before it was introduced",
+  "metric_definitions": {
+    "kp_final_m": "the larger of the mean keypoint error at the last recorded frame and at the terminal (unrecorded) state",
+    "seat_final": "plug base relative to its goal in the socket frame at the last frame: axial_m (+ = out), lateral_m, tilt_deg",
+    "finger_up_contact_force_max_n": "maximum upward (world +z) net contact force on the two fingers, summed, during approach and grasp"
+  },
+  "joint_commands": "not recorded (the controller outputs joint torques); measured joint states are observation.joint_*",
+  "planned_combinations": [
+    {
+      "batch_id": "automate_fullproc_20261004",
+      "profile": "mixed",
+      "base_trajectories": 5,
+      "variants_per_base": 1,
+      "generation_type": "new_motion"
+    }
+  ],
+  "visual_randomization": {
+    "profile": "mixed",
+    "applied": "once per round, right after the env reset and before the first recorded frame; constant within an episode",
+    "order": [
+      "lighting",
+      "distractors",
+      "surface_textures",
+      "scene_props"
+    ],
+    "order_affects_result": false,
+    "order_note": "the four parts write disjoint scene elements (listed under each part), so another order gives the same scene",
+    "seeding": "visual_seeds[part] = [run_seed, stream, round, env]; stream 1 lighting, 2 distractors, 3 surface_textures, 4 scene_props",
+    "parts": {
+      "lighting": {
+        "elements": [
+          "/World/Light (dome light, shared by all envs of a round)",
+          "/World/envs/env_<i>/KeyLight (sphere light, per env)"
+        ],
+        "dome_intensity": "2000 x U(0.35, 1.8)",
+        "dome_color_rgb": "0.75 + U(-0.15, 0.15) per channel, clipped to [0.3, 1.0]",
+        "key_intensity": "U(0, 4e5)",
+        "key_radius_m": "U(0.05, 0.25)",
+        "key_position_env_m": {
+          "x": [
+            0.2,
+            1.0
+          ],
+          "y": [
+            -0.6,
+            0.6
+          ],
+          "z": [
+            0.6,
+            1.5
+          ]
+        },
+        "key_color_rgb": "U(0.7, 1.0) per channel",
+        "intensity_unit": "Omniverse RTX nits-scaled"
+      },
+      "distractors": {
+        "elements": [
+          "/World/envs/env_<i>/Distractor_<k> (k = 0..3)",
+          "their UsdPreviewSurface materials"
+        ],
+        "count": "U{0, 1, 2, 3, 4} per env and round",
+        "types": "Distractor_<k>: box for even k, cylinder for odd k (category primitive_box / primitive_cylinder)",
+        "physics": "visual only (no collision, no rigid body)",
+        "size_m": "U(0.02, 0.06) per axis",
+        "yaw_deg": "U(0, 360)",
+        "color_rgb": "U(0.05, 0.95) per channel",
+        "roughness": 0.5,
+        "placement": "standing on the table top; x U(0.3, 0.95) m, y U(-0.45, 0.45) m (env frame); >= 0.10 m from the socket and from the plug, >= 0.08 m from the socket-plug segment and from the front camera's lines of sight to both; up to 50 tries, otherwise that distractor is hidden (the recorded list holds the visible ones)",
+        "type_distribution": {
+          "per_episode_version": "episodes.jsonl visual_randomization_version (count per version: schema visual_randomization_versions_in_this_dataset)",
+          "v1_20261004": "deterministic by slot: Distractor_k is a box for even k and a cylinder for odd k, so with n visible distractors there are ceil(n/2) boxes and floor(n/2) cylinders, listed box first; over n = 0..4 boxes : cylinders = 60 : 40, and a single distractor is always a box (episodes collected 2026-10-04..10-10)",
+          "v2_20261010": "each distractor slot independently a box or a cylinder with probability 1/2 each (every slot is an Xform holding one box and one cylinder, the other one made invisible); n = U{0..4} as in v1 (episodes collected from 2026-10-10 15:57 CST; first 1,808 distractors: 900 boxes, 908 cylinders)"
+        }
+      },
+      "surface_textures": {
+        "elements": [
+          "floor material /World/Looks/CollectFloor on the ground plane (shared by all envs of a round)",
+          "table material (per env)"
+        ],
+        "floor": {
+          "texture": "one of 3 upstream Fabrica textures: floor/T_Metal_Glossy_A_Albedo.png, floor/T_Plastic_Gray_A_Albedo.png, floor/t_corrugatedboxes_b01_tile02_albedo.png",
+          "tiling": "U(1, 3)"
+        },
+        "table": {
+          "choice": "per env 50 / 50: plain colour or texture",
+          "plain_colour": "one of the 6 upstream Fabrica table_surface palette colours [[0.14,0.14,0.14],[0.28,0.31,0.32],[0.22,0.30,0.25],[0.33,0.24,0.25],[0.25,0.27,0.36],[0.40,0.36,0.25]] (a 1x1 white texture tinted by it, tiling 1)",
+          "texture": "one of 4 upstream Fabrica textures: table/T_Wood_Laminate_Gray_A_Albedo.png, table/T_Wood_Pressed_A1_Albedo.png, table/T_MetalPainted_White_Glossy_A_Albedo.png, table/T_Plastic_Gray_A_Albedo.png; tiling U(1, 3)",
+          "roughness": "U(0.2, 0.9)",
+          "appearance_probabilities": "plain colour 0.5 (each of the 6 palette colours 1/12) / texture 0.5 (each of the 4 textures 1/8)"
+        },
+        "asset_registry": "data/visual_assets/fabrica_textures/manifest.json (file -> upstream path, sha256); every episode records the file and its sha256"
+      },
+      "scene_props": {
+        "elements": [
+          "/World/envs/env_<i>/SceneProp_<k>"
+        ],
+        "count": "U{3, 4, 5, 6} per env and round",
+        "assets": "16 Isaac 5.1 assets: Simple_Warehouse props SM_BarelPlastic_A_01, SM_BarelPlastic_C_01, SM_CardBoxA_01, SM_CardBoxA_02, SM_CardBoxB_01, SM_CardBoxC_01, SM_CratePlastic_A_04, SM_FuseBox_01, SM_PaletteA_01, SM_PaletteA_02, SM_PushcartA_02, SM_WallA_6M, SM_WallWire_08, S_TrafficCone, Props/Forklift/forklift, Props/KLT_Bin/small_KLT_visual",
+        "categories": [
+          "barrel",
+          "cardboard_box",
+          "plastic_crate",
+          "pallet",
+          "wall_segment",
+          "wire_fence",
+          "forklift",
+          "storage_bin",
+          "traffic_cone",
+          "pushcart",
+          "electrical_cabinet"
+        ],
+        "placement": "on the ground (z -0.4 m), 2-6 m from the front camera inside its horizontal field of view, yaw U(0, 360); oriented footprints clear the env keep-out box (arm, table, both cameras) and each other; never inside another env's front view",
+        "physics": "visual only",
+        "asset_registry": "data/visual_assets/warehouse_props/manifest.json (id, url, category, bounds)",
+        "selection": {
+          "per_episode_version": "episodes.jsonl visual_randomization_version",
+          "v1_20261004": "each env and round: n = U{3..6}, the 16 assets in a uniformly random order, placed in that order until n fit; every asset has about the same frequency, so a category's frequency is proportional to its number of assets (cardboard_box 4 assets, barrel 2, pallet 2, the other 8 categories 1 each: cardboard boxes appear about 4x as often as a traffic cone or the forklift) (episodes collected 2026-10-04..10-10)",
+          "v2_20261010": "each env and round: n = U{3..6}; the order of the 16 assets is built by repeatedly drawing a category uniformly among the categories that still have assets left, then one of its remaining assets uniformly; props are placed in that order until n fit (a prop that does not fit is skipped, a second pass retries the skipped ones). A category with several assets (cardboard_box 4, barrel 2, pallet 2) can recur within an episode and stays in the draw after the one-asset categories are used, so it is realised somewhat more often (first 4,150 props: cardboard_box 477, pallet 428, barrel 419, the other 8 categories 331-373) (episodes collected from 2026-10-10 15:57 CST)"
+        }
+      }
+    },
+    "not_randomized": {
+      "ground_plane": "Isaac Lab GroundPlaneCfg default_environment.usd at z -0.4 m (its material is the floor texture above)",
+      "table_asset": "Isaac 5.1 Props/Mounts/SeattleLabTable/table_instanceable.usd, top at z -0.003 m (env)",
+      "back_wall": "none",
+      "cameras": "fixed: D435 front (env frame) and D405 wrist (on panda_hand); intrinsics and mounts constant"
+    },
+    "actual_values": "per episode in metadata environment (lights, table, ground, distractors, scene_props) and domain_randomization.params; LeRobot export: meta/diversity/environments.jsonl",
+    "exposure_filter": {
+      "rule": "an episode is rejected (not kept) when, in the first recorded frame of the front camera (arm at the home pose), the table region (rows 300-480, cols 120-520 of the 640 x 480 image, luma of the decoded video) has a median >= 239 (table rendered close to white) or >= 3 % of its pixels >= 250 (a clipped light spot)",
+      "why": "the renderer has no auto exposure; bright dome light combined with a strong, close key light and a pale table colour or texture washes the table out (first scan 2026-10-10: 2,769 of 25,840 collected episodes, 10.7 %; 4-16 % per task); threshold set from a user review of 16 first frames on 2026-10-10",
+      "effect_on_distributions": "the realised lighting / table-look combinations exclude the brightest ones: the parameter ranges in parts.lighting and parts.surface_textures are the sampling ranges before this filter; per-episode actual values are in environments.jsonl",
+      "applies_to": "every episode of the dataset (v1_20261004 and v2_20261010)"
+    }
+  },
+  "visual_randomization_versions_in_this_dataset": {
+    "v2_20261010": 5
+  },
+  "asset_registry": {
+    "note": "texture ids are paths relative to the upstream Fabrica texture set; sha256 per episode in environments.jsonl",
+    "fabrica_textures": {
+      "fabrica_textures/table/T_Wood_Laminate_Gray_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_Albedo.png",
+        "sha256": "c0566c4fc38f4004c8db6d20009d3af675891bd30b574ec24ceb5325597bfbab"
+      },
+      "fabrica_textures/table/T_Wood_Pressed_A1_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_Albedo.png",
+        "sha256": "3065b2625f535a306422de5dbbdc6168fbd29922a3ded13c2f0cfb98c2af7fd6"
+      },
+      "fabrica_textures/table/T_MetalPainted_White_Glossy_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Albedo.png",
+        "sha256": "c9651a8eb7a7db92d51dbf319e6a54096869bf7b57d541137272b4be73325f20"
+      },
+      "fabrica_textures/table/T_Plastic_Gray_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/container_h20/textures/T_Plastic_Gray_A_Albedo.png",
+        "sha256": "45604d449bf31d0f956dfa990745da7bc54beb3bd017af0126f3abf5e7e065dd"
+      },
+      "fabrica_textures/wall/t_corrugatedboxes_b01_tile01_albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/materials/textures/t_corrugatedboxes_b01_tile01_albedo.png",
+        "sha256": "5db82f3c8f9700b79bb4d2f801c33718c6ea9f406699948ba7c971a676adc5ea"
+      },
+      "fabrica_textures/wall/T_Metal_Glossy_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Albedo.png",
+        "sha256": "1f2c43526c30270e07b6e0ea5ccba7be5b588db5a19e70cc909ed69f17dabd4e"
+      },
+      "fabrica_textures/wall/T_MetalPainted_White_Glossy_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Albedo.png",
+        "sha256": "c9651a8eb7a7db92d51dbf319e6a54096869bf7b57d541137272b4be73325f20"
+      },
+      "fabrica_textures/floor/T_Metal_Glossy_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Albedo.png",
+        "sha256": "1f2c43526c30270e07b6e0ea5ccba7be5b588db5a19e70cc909ed69f17dabd4e"
+      },
+      "fabrica_textures/floor/T_Plastic_Gray_A_Albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_franka_plumbers_block_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/props/container_h20/textures/T_Plastic_Gray_A_Albedo.png",
+        "sha256": "45604d449bf31d0f956dfa990745da7bc54beb3bd017af0126f3abf5e7e065dd"
+      },
+      "fabrica_textures/floor/t_corrugatedboxes_b01_tile02_albedo.png": {
+        "upstream_relpath": "roboassemblybench/assets/Fabrica/fabrica_ur5e_cooling_optical_board_black_fullbundle_sdf001/assets/isaac_official/Isaac/Props/PackingTable/materials/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+        "sha256": "f28e62db726c65c9d3472bc2fd1bc6e5328ea98fc94c9359c586c7c99963a58d"
+      }
+    },
+    "scene_props": {
+      "Props/Forklift/forklift.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Forklift/forklift.usd",
+        "category": "forklift"
+      },
+      "Environments/Simple_Warehouse/Props/SM_PaletteA_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_PaletteA_01.usd",
+        "category": "pallet"
+      },
+      "Environments/Simple_Warehouse/Props/SM_PaletteA_02.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_PaletteA_02.usd",
+        "category": "pallet"
+      },
+      "Environments/Simple_Warehouse/Props/SM_CardBoxA_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_CardBoxA_01.usd",
+        "category": "cardboard_box"
+      },
+      "Environments/Simple_Warehouse/Props/SM_CardBoxA_02.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_CardBoxA_02.usd",
+        "category": "cardboard_box"
+      },
+      "Environments/Simple_Warehouse/Props/SM_CardBoxB_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_CardBoxB_01.usd",
+        "category": "cardboard_box"
+      },
+      "Environments/Simple_Warehouse/Props/SM_CardBoxC_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_CardBoxC_01.usd",
+        "category": "cardboard_box"
+      },
+      "Environments/Simple_Warehouse/Props/SM_BarelPlastic_A_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_BarelPlastic_A_01.usd",
+        "category": "barrel"
+      },
+      "Environments/Simple_Warehouse/Props/SM_BarelPlastic_C_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_BarelPlastic_C_01.usd",
+        "category": "barrel"
+      },
+      "Environments/Simple_Warehouse/Props/S_TrafficCone.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/S_TrafficCone.usd",
+        "category": "traffic_cone"
+      },
+      "Environments/Simple_Warehouse/Props/SM_PushcartA_02.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_PushcartA_02.usd",
+        "category": "pushcart"
+      },
+      "Environments/Simple_Warehouse/Props/SM_FuseBox_01.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_FuseBox_01.usd",
+        "category": "electrical_cabinet"
+      },
+      "Environments/Simple_Warehouse/Props/SM_CratePlastic_A_04.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_CratePlastic_A_04.usd",
+        "category": "plastic_crate"
+      },
+      "Environments/Simple_Warehouse/Props/SM_WallA_6M.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_WallA_6M.usd",
+        "category": "wall_segment"
+      },
+      "Environments/Simple_Warehouse/Props/SM_WallWire_08.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Simple_Warehouse/Props/SM_WallWire_08.usd",
+        "category": "wire_fence"
+      },
+      "Props/KLT_Bin/small_KLT_visual.usd": {
+        "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/KLT_Bin/small_KLT_visual.usd",
+        "category": "storage_bin"
+      }
+    }
+  },
+  "environment_field_mapping": {
+    "background_texture": "the floor (ground plane) texture of the episode",
+    "table_texture": "the table texture file, or the Fabrica palette colour of a plain table",
+    "clutter": "visual-only distractors on the table; background warehouse props are scene content (environments.jsonl scene_props)"
+  },
+  "coordinate_note": "T_world_camera maps camera optical (OpenCV) coordinates to the episode's env frame; T_world_env in episodes.jsonl maps the env frame to the simulation world (pure translation)",
+  "frame_rate_provenance": "30 Hz recording (physics 120 Hz, every 4 steps); timestamp = frame_index / fps"
+}

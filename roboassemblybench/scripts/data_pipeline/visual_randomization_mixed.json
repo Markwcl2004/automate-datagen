@@ -1,0 +1,127 @@
+{
+  "visual_randomization": {
+    "profile": "mixed",
+    "applied": "once per round, right after the env reset and before the first recorded frame; constant within an episode",
+    "order": [
+      "lighting",
+      "distractors",
+      "surface_textures",
+      "scene_props"
+    ],
+    "order_affects_result": false,
+    "order_note": "the four parts write disjoint scene elements (listed under each part), so another order gives the same scene",
+    "seeding": "visual_seeds[part] = [run_seed, stream, round, env]; stream 1 lighting, 2 distractors, 3 surface_textures, 4 scene_props",
+    "parts": {
+      "lighting": {
+        "elements": [
+          "/World/Light (dome light, shared by all envs of a round)",
+          "/World/envs/env_<i>/KeyLight (sphere light, per env)"
+        ],
+        "dome_intensity": "2000 x U(0.35, 1.8)",
+        "dome_color_rgb": "0.75 + U(-0.15, 0.15) per channel, clipped to [0.3, 1.0]",
+        "key_intensity": "U(0, 4e5)",
+        "key_radius_m": "U(0.05, 0.25)",
+        "key_position_env_m": {
+          "x": [
+            0.2,
+            1.0
+          ],
+          "y": [
+            -0.6,
+            0.6
+          ],
+          "z": [
+            0.6,
+            1.5
+          ]
+        },
+        "key_color_rgb": "U(0.7, 1.0) per channel",
+        "intensity_unit": "Omniverse RTX nits-scaled"
+      },
+      "distractors": {
+        "elements": [
+          "/World/envs/env_<i>/Distractor_<k> (k = 0..3)",
+          "their UsdPreviewSurface materials"
+        ],
+        "count": "U{0, 1, 2, 3, 4} per env and round",
+        "types": "Distractor_<k>: box for even k, cylinder for odd k (category primitive_box / primitive_cylinder)",
+        "physics": "visual only (no collision, no rigid body)",
+        "size_m": "U(0.02, 0.06) per axis",
+        "yaw_deg": "U(0, 360)",
+        "color_rgb": "U(0.05, 0.95) per channel",
+        "roughness": 0.5,
+        "placement": "standing on the table top; x U(0.3, 0.95) m, y U(-0.45, 0.45) m (env frame); >= 0.10 m from the socket and from the plug, >= 0.08 m from the socket-plug segment and from the front camera's lines of sight to both; up to 50 tries, otherwise that distractor is hidden (the recorded list holds the visible ones)",
+        "type_distribution": {
+          "per_episode_version": "episodes.jsonl visual_randomization_version (count per version: schema visual_randomization_versions_in_this_dataset)",
+          "v1_20261004": "deterministic by slot: Distractor_k is a box for even k and a cylinder for odd k, so with n visible distractors there are ceil(n/2) boxes and floor(n/2) cylinders, listed box first; over n = 0..4 boxes : cylinders = 60 : 40, and a single distractor is always a box (episodes collected 2026-10-04..10-10)",
+          "v2_20261010": "each distractor slot independently a box or a cylinder with probability 1/2 each (every slot is an Xform holding one box and one cylinder, the other one made invisible); n = U{0..4} as in v1 (episodes collected from 2026-10-10 15:57 CST; first 1,808 distractors: 900 boxes, 908 cylinders)"
+        }
+      },
+      "surface_textures": {
+        "elements": [
+          "floor material /World/Looks/CollectFloor on the ground plane (shared by all envs of a round)",
+          "table material (per env)"
+        ],
+        "floor": {
+          "texture": "one of 3 upstream Fabrica textures: floor/T_Metal_Glossy_A_Albedo.png, floor/T_Plastic_Gray_A_Albedo.png, floor/t_corrugatedboxes_b01_tile02_albedo.png",
+          "tiling": "U(1, 3)"
+        },
+        "table": {
+          "choice": "per env 50 / 50: plain colour or texture",
+          "plain_colour": "one of the 6 upstream Fabrica table_surface palette colours [[0.14,0.14,0.14],[0.28,0.31,0.32],[0.22,0.30,0.25],[0.33,0.24,0.25],[0.25,0.27,0.36],[0.40,0.36,0.25]] (a 1x1 white texture tinted by it, tiling 1)",
+          "texture": "one of 4 upstream Fabrica textures: table/T_Wood_Laminate_Gray_A_Albedo.png, table/T_Wood_Pressed_A1_Albedo.png, table/T_MetalPainted_White_Glossy_A_Albedo.png, table/T_Plastic_Gray_A_Albedo.png; tiling U(1, 3)",
+          "roughness": "U(0.2, 0.9)",
+          "appearance_probabilities": "plain colour 0.5 (each of the 6 palette colours 1/12) / texture 0.5 (each of the 4 textures 1/8)"
+        },
+        "asset_registry": "data/visual_assets/fabrica_textures/manifest.json (file -> upstream path, sha256); every episode records the file and its sha256"
+      },
+      "scene_props": {
+        "elements": [
+          "/World/envs/env_<i>/SceneProp_<k>"
+        ],
+        "count": "U{3, 4, 5, 6} per env and round",
+        "assets": "16 Isaac 5.1 assets: Simple_Warehouse props SM_BarelPlastic_A_01, SM_BarelPlastic_C_01, SM_CardBoxA_01, SM_CardBoxA_02, SM_CardBoxB_01, SM_CardBoxC_01, SM_CratePlastic_A_04, SM_FuseBox_01, SM_PaletteA_01, SM_PaletteA_02, SM_PushcartA_02, SM_WallA_6M, SM_WallWire_08, S_TrafficCone, Props/Forklift/forklift, Props/KLT_Bin/small_KLT_visual",
+        "categories": [
+          "barrel",
+          "cardboard_box",
+          "plastic_crate",
+          "pallet",
+          "wall_segment",
+          "wire_fence",
+          "forklift",
+          "storage_bin",
+          "traffic_cone",
+          "pushcart",
+          "electrical_cabinet"
+        ],
+        "placement": "on the ground (z -0.4 m), 2-6 m from the front camera inside its horizontal field of view, yaw U(0, 360); oriented footprints clear the env keep-out box (arm, table, both cameras) and each other; never inside another env's front view",
+        "physics": "visual only",
+        "asset_registry": "data/visual_assets/warehouse_props/manifest.json (id, url, category, bounds)",
+        "selection": {
+          "per_episode_version": "episodes.jsonl visual_randomization_version",
+          "v1_20261004": "each env and round: n = U{3..6}, the 16 assets in a uniformly random order, placed in that order until n fit; every asset has about the same frequency, so a category's frequency is proportional to its number of assets (cardboard_box 4 assets, barrel 2, pallet 2, the other 8 categories 1 each: cardboard boxes appear about 4x as often as a traffic cone or the forklift) (episodes collected 2026-10-04..10-10)",
+          "v2_20261010": "each env and round: n = U{3..6}; the order of the 16 assets is built by repeatedly drawing a category uniformly among the categories that still have assets left, then one of its remaining assets uniformly; props are placed in that order until n fit (a prop that does not fit is skipped, a second pass retries the skipped ones). A category with several assets (cardboard_box 4, barrel 2, pallet 2) can recur within an episode and stays in the draw after the one-asset categories are used, so it is realised somewhat more often (first 4,150 props: cardboard_box 477, pallet 428, barrel 419, the other 8 categories 331-373) (episodes collected from 2026-10-10 15:57 CST)"
+        }
+      }
+    },
+    "not_randomized": {
+      "ground_plane": "Isaac Lab GroundPlaneCfg default_environment.usd at z -0.4 m (its material is the floor texture above)",
+      "table_asset": "Isaac 5.1 Props/Mounts/SeattleLabTable/table_instanceable.usd, top at z -0.003 m (env)",
+      "back_wall": "none",
+      "cameras": "fixed: D435 front (env frame) and D405 wrist (on panda_hand); intrinsics and mounts constant"
+    },
+    "actual_values": "per episode in metadata environment (lights, table, ground, distractors, scene_props) and domain_randomization.params; LeRobot export: meta/diversity/environments.jsonl",
+    "exposure_filter": {
+      "rule": "an episode is rejected (not kept) when, in the first recorded frame of the front camera (arm at the home pose), the table region (rows 300-480, cols 120-520 of the 640 x 480 image, luma of the decoded video) has a median >= 239 (table rendered close to white) or >= 3 % of its pixels >= 250 (a clipped light spot)",
+      "why": "the renderer has no auto exposure; bright dome light combined with a strong, close key light and a pale table colour or texture washes the table out (first scan 2026-10-10: 2,769 of 25,840 collected episodes, 10.7 %; 4-16 % per task); threshold set from a user review of 16 first frames on 2026-10-10",
+      "effect_on_distributions": "the realised lighting / table-look combinations exclude the brightest ones: the parameter ranges in parts.lighting and parts.surface_textures are the sampling ranges before this filter; per-episode actual values are in environments.jsonl",
+      "applies_to": "every episode of the dataset (v1_20261004 and v2_20261010)"
+    }
+  },
+  "environment_four_fields_mapping": {
+    "background_texture": "the floor texture file of the round (e.g. fabrica_textures/floor/T_Plastic_Gray_A_Albedo.png); scene props are kept separately in scene_asset / distractors_background",
+    "table_texture": "the table texture file, or palette_colour_<index> rgb(r, g, b) for a plain table",
+    "clutter_count": "number of visible table distractors",
+    "clutter_object_categories": "one entry per visible table distractor in prim order: box / cylinder"
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "codebase_version": "v3.0",
+  "robot_type": "franka_panda_single_arm",
+  "total_episodes": 5,
+  "total_frames": 3956,
+  "total_tasks": 1,
+  "fps": 30,
+  "data_path": "data/chunk-{chunk_index:03d}/file-{file_index:03d}.parquet",
+  "video_path": "videos/{video_key}/chunk-{chunk_index:03d}/file-{file_index:03d}.mp4",
+  "total_videos": 2,
+  "total_chunks": 1,
+  "chunks_size": 1000,
+  "data_files_size_in_mb": 100,
+  "video_files_size_in_mb": 200,
+  "splits": {
+    "train": "0:5"
+  },
+  "features": {
+    "observation.state": {
+      "dtype": "float64",
+      "shape": [
+        8
+      ],
+      "names": [
+        "franka_eef_x",
+        "franka_eef_y",
+        "franka_eef_z",
+        "franka_eef_qw",
+        "franka_eef_qx",
+        "franka_eef_qy",
+        "franka_eef_qz",
+        "franka_gripper_open"
+      ]
+    },
+    "action": {
+      "dtype": "float64",
+      "shape": [
+        8
+      ],
+      "names": [
+        "franka_target_x",
+        "franka_target_y",
+        "franka_target_z",
+        "franka_target_qw",
+        "franka_target_qx",
+        "franka_target_qy",
+        "franka_target_qz",
+        "franka_gripper_target"
+      ]
+    },
+    "episode_index": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ]
+    },
+    "frame_index": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ]
+    },
+    "timestamp": {
+      "dtype": "float64",
+      "shape": [
+        1
+      ]
+    },
+    "index": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ]
+    },
+    "task_index": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ]
+    },
+    "observation.joint_state": {
+      "dtype": "float32",
+      "shape": [
+        7
+      ],
+      "names": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ]
+    },
+    "observation.joint_velocity": {
+      "dtype": "float32",
+      "shape": [
+        7
+      ],
+      "names": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ]
+    },
+    "observation.joint_effort": {
+      "dtype": "float32",
+      "shape": [
+        7
+      ],
+      "names": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ]
+    },
+    "observation.contact_force": {
+      "dtype": "float32",
+      "shape": [
+        9
+      ],
+      "names": [
+        "left_finger_net_x",
+        "left_finger_net_y",
+        "left_finger_net_z",
+        "right_finger_net_x",
+        "right_finger_net_y",
+        "right_finger_net_z",
+        "plug_net_x",
+        "plug_net_y",
+        "plug_net_z"
+      ]
+    },
+    "observation.plug_pose": {
+      "dtype": "float64",
+      "shape": [
+        7
+      ],
+      "names": [
+        "x",
+        "y",
+        "z",
+        "qw",
+        "qx",
+        "qy",
+        "qz"
+      ]
+    },
+    "observation.socket_pose": {
+      "dtype": "float64",
+      "shape": [
+        7
+      ],
+      "names": [
+        "x",
+        "y",
+        "z",
+        "qw",
+        "qx",
+        "qy",
+        "qz"
+      ]
+    },
+    "observation.keypoint_error": {
+      "dtype": "float32",
+      "shape": [
+        1
+      ],
+      "names": [
+        "mean_keypoint_error_m"
+      ]
+    },
+    "policy_action": {
+      "dtype": "float32",
+      "shape": [
+        6
+      ],
+      "names": [
+        "dx",
+        "dy",
+        "dz",
+        "drx",
+        "dry",
+        "drz"
+      ]
+    },
+    "phase_index": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ],
+      "names": null
+    },
+    "observation.images.front": {
+      "dtype": "video",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "names": [
+        "height",
+        "width",
+        "channels"
+      ],
+      "info": {
+        "video.fps": 30,
+        "video.codec": "h264",
+        "video.pix_fmt": "yuv420p",
+        "video.is_depth_map": false,
+        "has_audio": false
+      }
+    },
+    "observation.images.wrist": {
+      "dtype": "video",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "names": [
+        "height",
+        "width",
+        "channels"
+      ],
+      "info": {
+        "video.fps": 30,
+        "video.codec": "h264",
+        "video.pix_fmt": "yuv420p",
+        "video.is_depth_map": false,
+        "has_audio": false
+      }
+    }
+  },
+  "roboassemblybench_sidecars": {
+    "depth": "omitted in this export (--no-depth); the full dataset carries it",
+    "annotations": "annotations/episode_XXXXXX.json"
+  }
+}

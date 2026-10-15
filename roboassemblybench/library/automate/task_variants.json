@@ -1,0 +1,1869 @@
+{
+ "description": "Per-task settings of the AutoMate single-arm specialists (table scene, evalsig baseline). The env reads 'grasp' (replaces plug_grasps.json, same 7 values) and 'max_tilt_deg' (gripper roll / pitch unlock); 'training.stages' are run in order by scripts/automate_pipeline/train_task.sh, each stage resuming from the previous one; 'policy' is the checkpoint with the best formal eval (100 episodes, deterministic, eval start distribution), used for data collection.",
+ "tasks": {
+  "00004": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00004_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1849.7212_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00007": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00007_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1481.9739_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00014": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00014_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1872.3307_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00015": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00015_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1635.9075_.pth",
+    "eval_strict_final": 0.92
+   }
+  },
+  "00016": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00016_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1722.2748_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00021": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00021_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1760.3901_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00028": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00028_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1480.9432_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00030": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00030_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1723.4049_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00032": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00032_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1792.5256_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00042": {
+   "variant": "tilt",
+   "reason": "plug sits tilted in the closed gripper (> 1 deg): gripper roll / pitch unlocked",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00042_evalsig_tilt",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1548.9214_.pth",
+    "eval_strict_final": 0.85
+   },
+   "max_tilt_deg": 10.0
+  },
+  "00062": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00062_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1708.4036_.pth",
+    "eval_strict_final": 0.93
+   }
+  },
+  "00074": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00074_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1619.0687_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00077": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00077_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1562.3448_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00078": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00078_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1556.194_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00081": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00081_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1766.1145_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00083": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00083_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1643.4432_.pth",
+    "eval_strict_final": 0.93
+   },
+   "grasp": [
+    0.0017873026663437486,
+    0.004541529342532158,
+    0.13382229208946228,
+    -0.10448429733514786,
+    0.9941018223762512,
+    -1.0539178418866868e-08,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 0.0,
+    "yaw_deg": -12.0
+   },
+   "grasp_evidence": "outputs/grasp_fix2_20260929/00083.json: free-air closing rotates the plug 3.4 deg in the hand (stored grasp: 11.4 deg); seated strict 55% (the seated check is unreliable here)",
+   "grasp_reason": "plug spins ~11 deg while the gripper closes; the policy must undo it with slow yaw actions; pre-rotating the grasp by -12 deg leaves 3.4 deg"
+  },
+  "00103": {
+   "variant": "tilt",
+   "reason": "plug sits tilted in the closed gripper (> 1 deg): gripper roll / pitch unlocked",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00103_evalsig_tilt",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1584.796_.pth",
+    "eval_strict_final": 0.93
+   },
+   "max_tilt_deg": 10.0
+  },
+  "00110": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00110_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1529.2977_.pth",
+    "eval_strict_final": 0.89
+   }
+  },
+  "00117": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00117_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1298.313_.pth",
+    "eval_strict_final": 0.88
+   }
+  },
+  "00133": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00133_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1635.2926_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00138": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00138_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1471.4933_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00141": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00141_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1585.1677_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "00143": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00143_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1879.7651_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00163": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00163_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1384.128_.pth",
+    "eval_strict_final": 0.93
+   }
+  },
+  "00175": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00175_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1628.3965_.pth",
+    "eval_strict_final": 0.95
+   }
+  },
+  "00186": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00186_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1313.6576_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00187": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00187_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1538.9963_.pth",
+    "eval_strict_final": 0.88
+   }
+  },
+  "00190": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00190_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1499.8961_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00192": {
+   "variant": "tilt",
+   "reason": "plug sits tilted in the closed gripper (> 1 deg): gripper roll / pitch unlocked",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00192_evalsig_tilt",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1689.2277_.pth",
+    "eval_strict_final": 1.0
+   },
+   "max_tilt_deg": 10.0
+  },
+  "00210": {
+   "variant": "thr",
+   "reason": "level-0 above-hole success stuck at 0.6-0.7 under the 0.8 level-up threshold: lower thresholds",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 1500,
+      "note": "resumed from 1000 (curriculum restarts at level 0)"
+     },
+     {
+      "iterations": 2500,
+      "hydra_overrides": [
+       "env.tasks.insertion.curriculum_success_thresh=0.6",
+       "env.tasks.insertion.curriculum_failure_thresh=0.4"
+      ],
+      "note": "resumed from the iteration-1500 checkpoint with level-up / level-down thresholds 0.6 / 0.4 (default 0.8 / 0.5)"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260930_00210_evalsig_thr",
+    "iteration": 2500,
+    "checkpoint": "last_Assembly_ep_2500_rew__1350.6105_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00211": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00211_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1496.0084_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00213": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00213_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1675.0048_.pth",
+    "eval_strict_final": 0.85
+   }
+  },
+  "00255": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00255_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1549.0715_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "00256": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00256_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1709.4213_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00271": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00271_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1513.4945_.pth",
+    "eval_strict_final": 0.89
+   }
+  },
+  "00293": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00293_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1580.6749_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "00296": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00296_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1609.9698_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00301": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00301_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1481.7196_.pth",
+    "eval_strict_final": 0.89
+   }
+  },
+  "00308": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00308_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1374.8127_.pth",
+    "eval_strict_final": 0.9
+   }
+  },
+  "00318": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00318_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1596.3323_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00319": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00319_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1493.635_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00320": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00320_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1891.3629_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00329": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00329_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1543.6805_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00340": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00340_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1461.7877_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00345": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00345_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1832.4185_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00346": {
+   "variant": "tilt",
+   "reason": "plug sits tilted in the closed gripper (> 1 deg): gripper roll / pitch unlocked",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00346_evalsig_tilt",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1520.5002_.pth",
+    "eval_strict_final": 0.96
+   },
+   "max_tilt_deg": 10.0
+  },
+  "00360": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00360_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1749.6034_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00388": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00388_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1614.7139_.pth",
+    "eval_strict_final": 0.95
+   }
+  },
+  "00410": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00410_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1482.7808_.pth",
+    "eval_strict_final": 0.89
+   }
+  },
+  "00417": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00417_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1726.6207_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00422": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00422_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1661.7211_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "00426": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00426_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1590.661_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00437": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00437_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1681.1094_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00444": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00444_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1864.2452_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00446": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00446_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1485.4362_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00470": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00470_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1594.6454_.pth",
+    "eval_strict_final": 0.98
+   },
+   "grasp": [
+    0.015531019307672977,
+    0.020244857296347618,
+    0.13394959270954132,
+    0.7068080902099609,
+    0.7068080902099609,
+    -1.583531528126514e-08,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 2.0,
+    "yaw_deg": 90.0,
+    "dx_mm": 15.2,
+    "dy_mm": 20.0
+   },
+   "grasp_evidence": "outputs/grasp_fix4_20260929/dy20/00470.json: hold drift max 0.04 mm, rot max 0.12 deg, seated strict 100% (stored grasp: drift 7.2 mm, rot 5.6 deg)",
+   "grasp_reason": "plate part 95 mm across along the stored closing axis (wider than the 80 mm opening); the stored grasp pinched a ~2 mm knob and the plug slid 7-12 mm in the hand; closing across the 67 mm side, centred on the plate and 20 mm toward its centre of mass"
+  },
+  "00471": {
+   "variant": "sockbase",
+   "reason": "socket mesh reaches below its origin: socket placed by its lowest point (now part of the baseline)",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00471_evalsig_sockbase",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1821.9237_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "00480": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00480_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1676.6112_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00486": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00486_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1428.8103_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00499": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00499_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1812.7668_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00506": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00506_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1235.0952_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00514": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00514_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1843.5782_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "00537": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00537_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1336.3433_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "00553": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00553_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1255.825_.pth",
+    "eval_strict_final": 0.91
+   }
+  },
+  "00559": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00559_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1756.5835_.pth",
+    "eval_strict_final": 0.93
+   }
+  },
+  "00581": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00581_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1665.0533_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00597": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00597_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1805.394_.pth",
+    "eval_strict_final": 0.88
+   }
+  },
+  "00614": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00614_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1465.1897_.pth",
+    "eval_strict_final": 0.93
+   }
+  },
+  "00615": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00615_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1658.7926_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00638": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00638_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1575.9344_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00648": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00648_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1478.0463_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00649": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00649_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1576.6981_.pth",
+    "eval_strict_final": 0.95
+   }
+  },
+  "00652": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00652_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1444.1454_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00659": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00659_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1583.98_.pth",
+    "eval_strict_final": 0.93
+   }
+  },
+  "00681": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00681_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1260.4579_.pth",
+    "eval_strict_final": 0.81
+   },
+   "grasp": [
+    0.0005220442544668913,
+    0.003792000003159046,
+    0.15640006959438324,
+    0.0,
+    0.9970659017562866,
+    0.006547808647155762,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 5.5,
+    "yaw_deg": 0.0
+   },
+   "grasp_evidence": "outputs/grasp_select_20260929/00681.json: seated strict 100%, kp 0.46 mm, tilt 0.05 deg, hold drift max 0.01 mm (n=8)",
+   "grasp_reason": "fingertip 4.7 mm below the socket top; reference trajectory start implies +5.5 mm"
+  },
+  "00686": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00686_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1435.6119_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00700": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00700_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1508.6875_.pth",
+    "eval_strict_final": 1.0
+   },
+   "grasp": [
+    0.006786092650145292,
+    -0.0014742754865437746,
+    0.13085392117500305,
+    0.38252174854278564,
+    0.9234892129898071,
+    2.777300522893711e-08,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 0.0,
+    "yaw_deg": 45.0
+   },
+   "grasp_evidence": "outputs/grasp_select_20260929/00700.json: seated strict 100%, kp 1.60 mm, tilt 0.49 deg, hold drift max 0.00 mm (n=6)",
+   "grasp_reason": "best seated candidate; trained alongside the original grasp in the main queue as a comparison"
+  },
+  "00703": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00703_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1623.989_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "00726": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00726_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1633.4589_.pth",
+    "eval_strict_final": 0.99
+   },
+   "grasp": [
+    -0.0013589999871328473,
+    -0.006167011335492134,
+    0.12017182260751724,
+    0.0,
+    0.9995775818824768,
+    0.0,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 5.0,
+    "yaw_deg": 0.0
+   },
+   "grasp_evidence": "outputs/grasp_fix3_20260929/00726.json: seated strict 100%, hold drift max 0.01 mm",
+   "grasp_reason": "fingertips 1.8 mm above the table at seated; the policy hovers 5-7 mm above seated (a_z ~ 0) while a scripted push seats the plug 88-94%% (outputs/probe_stuck_20260929); +5 mm gives 6.8 mm table clearance"
+  },
+  "00731": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00731_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1694.721_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00741": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00741_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1479.0443_.pth",
+    "eval_strict_final": 0.98
+   }
+  },
+  "00755": {
+   "variant": "tiltgrasp",
+   "reason": "plug slips with the stored grasp; the lower stable grasp holds it 3.4 deg tilted: reselected grasp + tilt unlock",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260930_00755_evalsig_tiltgrasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1870.8853_.pth",
+    "eval_strict_final": 0.99
+   },
+   "grasp": [
+    -0.004329941235482693,
+    -0.0040579079650342464,
+    0.14629124104976654,
+    0.0,
+    0.9995775818824768,
+    0.0,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": -6.0,
+    "yaw_deg": 0.0
+   },
+   "grasp_evidence": "outputs/grasp_fix5_20260930/00755.json + grasp_fix6: dz -6 hold drift max 0.01 mm (stored grasp 4.3 mm), plug axis vs gripper axis 3.4 deg; dz -4..-5 unstable (plugs drop)",
+   "grasp_reason": "plug slips 4.4 mm in the hand with the stored grasp (diag: in-hand slip max 4.4 mm, curriculum never left level 0); lowering 6 mm stops the slip but holds the plug 3.4 deg tilted, so the task is also tilt-unlocked",
+   "max_tilt_deg": 10.0
+  },
+  "00768": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00768_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1548.6403_.pth",
+    "eval_strict_final": 0.9
+   }
+  },
+  "00783": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00783_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1642.431_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "00831": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00831_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1841.4292_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "00855": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00855_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1287.187_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "00860": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00860_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1454.5059_.pth",
+    "eval_strict_final": 0.95
+   }
+  },
+  "00863": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_00863_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1475.3574_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "01026": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01026_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1529.8599_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "01029": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01029_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1473.2451_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "01036": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01036_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1616.1057_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "01041": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01041_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1397.3981_.pth",
+    "eval_strict_final": 0.87
+   }
+  },
+  "01053": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01053_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1504.0723_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "01079": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01079_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1848.0963_.pth",
+    "eval_strict_final": 0.99
+   }
+  },
+  "01092": {
+   "variant": "grasp",
+   "reason": "stored grasp fails (finger-socket or finger-table collision, in-hand slip or spin): reselected grasp",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01092_evalsig_grasp",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1583.7759_.pth",
+    "eval_strict_final": 0.96
+   },
+   "grasp": [
+    0.0037363367155194283,
+    0.0028887863736599684,
+    0.13216091692447662,
+    0.0,
+    0.9995775818824768,
+    0.0,
+    0.0
+   ],
+   "grasp_change": {
+    "dz_mm": 5.5,
+    "yaw_deg": 0.0
+   },
+   "grasp_evidence": "outputs/grasp_select_20260929/01092.json: seated strict 0%, kp 4.06 mm, tilt 1.36 deg, hold drift max 0.01 mm (n=8)",
+   "grasp_reason": "fingertip 4.2 mm below the socket top with the stored grasp; +5.5 mm leaves 1.3 mm clearance (reference trajectory start implies +4.5); the seated check cannot judge this task (grasp 4.7 mm off the plug axis, closing in the hole tilts the plug)"
+  },
+  "01102": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01102_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1647.0742_.pth",
+    "eval_strict_final": 0.94
+   }
+  },
+  "01125": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01125_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1683.9573_.pth",
+    "eval_strict_final": 0.96
+   }
+  },
+  "01129": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01129_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1888.3328_.pth",
+    "eval_strict_final": 1.0
+   }
+  },
+  "01132": {
+   "variant": "2k",
+   "reason": "curriculum still rising / deterministic eval below training success at 1000: continued to 2000",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     },
+     {
+      "iterations": 2000,
+      "note": "resumed from the iteration-1000 checkpoint; the curriculum level is env state and restarts at level 0"
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01132_evalsig_2k",
+    "iteration": 2000,
+    "checkpoint": "last_Assembly_ep_2000_rew__1356.8071_.pth",
+    "eval_strict_final": 0.97
+   }
+  },
+  "01136": {
+   "variant": "main",
+   "reason": "baseline",
+   "training": {
+    "stages": [
+     {
+      "iterations": 1000
+     }
+    ]
+   },
+   "policy": {
+    "experiment": "20260929_01136_evalsig",
+    "iteration": 1000,
+    "checkpoint": "last_Assembly_ep_1000_rew__1499.8015_.pth",
+    "eval_strict_final": 0.9
+   }
+  }
+ }
+}
