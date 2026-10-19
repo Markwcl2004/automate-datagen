@@ -109,7 +109,7 @@ an action category plus target categories `[plug, socket]` from a controlled voc
 
 - [`label_crops.py`](roboassemblybench/scripts/data_pipeline/label_crops.py) cuts 4 close-ups per task (plug and socket, side view of the mating, two wrist frames).
 - [`vl_label.py`](roboassemblybench/scripts/data_pipeline/vl_label.py) asks a vision-language model (OpenAI-compatible API, `LLMAPI_*` settings) three times per task with the images shuffled.
-- The majority answers were mapped to a controlled vocabulary and reviewed by hand: [`examples/instruction_labels_automate_fullproc_20261004.json`](examples/instruction_labels_automate_fullproc_20261004.json). 2 actions × 25 plug × 35 socket categories give 55 distinct labels (5.36 bit).
+- The majority answers were mapped to a controlled vocabulary and reviewed by hand: [`examples/instruction_labels_automate_fullproc_20261004.json`](examples/instruction_labels_automate_fullproc_20261004.json). 2 actions, 25 plug and 35 socket categories; 55 distinct labels over the 85 tasks (5.36 bit).
 
 ## Quick start
 
@@ -144,7 +144,7 @@ roboassemblybench/
     collect_automate_single_arm.py   the collector
     training/                        per-task PPO training and evaluation
     data_pipeline/                   queue, workers, filter, trim, audit, QC, exporter, finalize, status
-examples/                  task config of the release
+examples/                  task config and instruction labels of the release
 sample/                    5 × 5 sample episodes (RGB only)
 docs/                      FIXES.md, KNOWN_ISSUES.md, demo media
 ```
