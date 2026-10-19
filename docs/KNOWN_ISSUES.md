@@ -12,6 +12,7 @@ These problems are not solved in the released data or code. Where a workaround e
 - **The renderer has no auto exposure.** About 11 % of collected episodes were rejected as overexposed, a pure compute loss. Sampling the lighting jointly with the table look (or an exposure model) would avoid it.
 - **The policy was trained without plug gravity.** Upstream AutoMate disables gravity on the held plug during training, and the insertion policies inherit that. Collection runs with gravity on, so only successful episodes are kept, but the policy's success rate is lower than it could be.
 - **15 of 100 assemblies are excluded.** 8 have plugs that tip over when standing on the table; 4 cannot be grasped from the table even with a raised grasp (one was retrained without success); 1 has a cavity under the goal, so the plug cannot stay seated; 2 stayed below 60 % policy success at the training limit.
+- **Instruction diversity is capped by the task family.** Every task puts a plug into or onto a socket. Labels per task (2 actions, 55 action + plug + socket combinations, 5.36 bit) are in `examples/instruction_labels_*.json`; the released export still uses the single instruction "Insert the plug into the socket." until it is re-exported with these labels.
 - **Joint commands are not recorded.** The controller outputs joint torques, so only measured joint states are available.
 - **An earlier delivered 10 × 10 sample contains 18 overexposed episodes.** It was made before the filter existed, and none of those episodes are in the final dataset.
 

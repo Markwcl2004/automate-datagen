@@ -1,0 +1,689 @@
+{
+ "note": "instruction labels per task for automate_fullproc_20261004: action category + target categories [plug, socket]. From 3 votes of qwen3-vl-235b on 4 close-ups per task (images shuffled, temperature 0), mapped to a controlled vocabulary and reviewed by hand (00032, 00192, 01029 corrected). main_instruction uses one template per action, so the action verb is extracted the same way for every task.",
+ "templates": {
+  "insert": "Insert the {plug} into the {socket}.",
+  "slide onto": "Slide the {plug} onto the {socket}."
+ },
+ "tasks": {
+  "00004": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "spoked wheel"
+   ],
+   "main_instruction": "Insert the round pin into the spoked wheel."
+  },
+  "00007": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "post"
+   ],
+   "main_instruction": "Slide the sleeve onto the post."
+  },
+  "00014": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "conical base"
+   ],
+   "main_instruction": "Insert the round pin into the conical base."
+  },
+  "00015": {
+   "action": "insert",
+   "target_categories": [
+    "flanged pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the flanged pin into the round socket."
+  },
+  "00016": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00021": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "star base"
+   ],
+   "main_instruction": "Insert the round pin into the star base."
+  },
+  "00028": {
+   "action": "insert",
+   "target_categories": [
+    "flanged pin",
+    "toothed cup"
+   ],
+   "main_instruction": "Insert the flanged pin into the toothed cup."
+  },
+  "00030": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "ring"
+   ],
+   "main_instruction": "Insert the round pin into the ring."
+  },
+  "00032": {
+   "action": "slide onto",
+   "target_categories": [
+    "u-channel",
+    "t-plate"
+   ],
+   "main_instruction": "Slide the u-channel onto the t-plate."
+  },
+  "00042": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "ring"
+   ],
+   "main_instruction": "Insert the round pin into the ring."
+  },
+  "00062": {
+   "action": "insert",
+   "target_categories": [
+    "flanged pin",
+    "flanged socket"
+   ],
+   "main_instruction": "Insert the flanged pin into the flanged socket."
+  },
+  "00077": {
+   "action": "slide onto",
+   "target_categories": [
+    "ring",
+    "flanged post"
+   ],
+   "main_instruction": "Slide the ring onto the flanged post."
+  },
+  "00078": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "00081": {
+   "action": "slide onto",
+   "target_categories": [
+    "toothed ring",
+    "flanged post"
+   ],
+   "main_instruction": "Slide the toothed ring onto the flanged post."
+  },
+  "00083": {
+   "action": "insert",
+   "target_categories": [
+    "stepped pin",
+    "square base with hole"
+   ],
+   "main_instruction": "Insert the stepped pin into the square base with hole."
+  },
+  "00110": {
+   "action": "insert",
+   "target_categories": [
+    "flanged pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the flanged pin into the disc with hole."
+  },
+  "00117": {
+   "action": "insert",
+   "target_categories": [
+    "disc-headed pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the disc-headed pin into the block with hole."
+  },
+  "00133": {
+   "action": "insert",
+   "target_categories": [
+    "hex-head pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the hex-head pin into the disc with hole."
+  },
+  "00138": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "bracket with hole"
+   ],
+   "main_instruction": "Insert the round pin into the bracket with hole."
+  },
+  "00141": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00175": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00186": {
+   "action": "slide onto",
+   "target_categories": [
+    "ring",
+    "post"
+   ],
+   "main_instruction": "Slide the ring onto the post."
+  },
+  "00187": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "00190": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "flanged post"
+   ],
+   "main_instruction": "Slide the sleeve onto the flanged post."
+  },
+  "00192": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "square base with boss"
+   ],
+   "main_instruction": "Insert the round pin into the square base with boss."
+  },
+  "00210": {
+   "action": "insert",
+   "target_categories": [
+    "tube",
+    "flanged block"
+   ],
+   "main_instruction": "Insert the tube into the flanged block."
+  },
+  "00213": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "flanged socket"
+   ],
+   "main_instruction": "Insert the round pin into the flanged socket."
+  },
+  "00255": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "rod"
+   ],
+   "main_instruction": "Slide the sleeve onto the rod."
+  },
+  "00256": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "triangular base"
+   ],
+   "main_instruction": "Insert the round pin into the triangular base."
+  },
+  "00271": {
+   "action": "insert",
+   "target_categories": [
+    "hex-head pin",
+    "square base with hole"
+   ],
+   "main_instruction": "Insert the hex-head pin into the square base with hole."
+  },
+  "00293": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00296": {
+   "action": "slide onto",
+   "target_categories": [
+    "flanged sleeve",
+    "disc with post"
+   ],
+   "main_instruction": "Slide the flanged sleeve onto the disc with post."
+  },
+  "00301": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "fan disc"
+   ],
+   "main_instruction": "Insert the round pin into the fan disc."
+  },
+  "00318": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "00319": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00320": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with two holes"
+   ],
+   "main_instruction": "Insert the round pin into the block with two holes."
+  },
+  "00329": {
+   "action": "insert",
+   "target_categories": [
+    "tube",
+    "flanged block"
+   ],
+   "main_instruction": "Insert the tube into the flanged block."
+  },
+  "00340": {
+   "action": "slide onto",
+   "target_categories": [
+    "gear",
+    "plate with post"
+   ],
+   "main_instruction": "Slide the gear onto the plate with post."
+  },
+  "00346": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "plate with two posts"
+   ],
+   "main_instruction": "Slide the sleeve onto the plate with two posts."
+  },
+  "00360": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the round pin into the disc with hole."
+  },
+  "00388": {
+   "action": "insert",
+   "target_categories": [
+    "t-pin",
+    "cup"
+   ],
+   "main_instruction": "Insert the t-pin into the cup."
+  },
+  "00410": {
+   "action": "insert",
+   "target_categories": [
+    "disc-headed pin",
+    "cup"
+   ],
+   "main_instruction": "Insert the disc-headed pin into the cup."
+  },
+  "00417": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00422": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "post"
+   ],
+   "main_instruction": "Slide the sleeve onto the post."
+  },
+  "00426": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "bracket with hole"
+   ],
+   "main_instruction": "Insert the round pin into the bracket with hole."
+  },
+  "00437": {
+   "action": "insert",
+   "target_categories": [
+    "flat pin",
+    "slotted disc"
+   ],
+   "main_instruction": "Insert the flat pin into the slotted disc."
+  },
+  "00446": {
+   "action": "insert",
+   "target_categories": [
+    "t-pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the t-pin into the round socket."
+  },
+  "00470": {
+   "action": "insert",
+   "target_categories": [
+    "rectangular block",
+    "tray"
+   ],
+   "main_instruction": "Insert the rectangular block into the tray."
+  },
+  "00471": {
+   "action": "insert",
+   "target_categories": [
+    "t-pin",
+    "t-slot base"
+   ],
+   "main_instruction": "Insert the t-pin into the t-slot base."
+  },
+  "00480": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "00486": {
+   "action": "slide onto",
+   "target_categories": [
+    "flanged sleeve",
+    "flanged post"
+   ],
+   "main_instruction": "Slide the flanged sleeve onto the flanged post."
+  },
+  "00506": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00514": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with two holes"
+   ],
+   "main_instruction": "Insert the round pin into the block with two holes."
+  },
+  "00537": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00553": {
+   "action": "slide onto",
+   "target_categories": [
+    "square ring",
+    "square post"
+   ],
+   "main_instruction": "Slide the square ring onto the square post."
+  },
+  "00559": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "ring"
+   ],
+   "main_instruction": "Insert the round pin into the ring."
+  },
+  "00581": {
+   "action": "slide onto",
+   "target_categories": [
+    "hex nut",
+    "bolt"
+   ],
+   "main_instruction": "Slide the hex nut onto the bolt."
+  },
+  "00597": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "pulley"
+   ],
+   "main_instruction": "Insert the round pin into the pulley."
+  },
+  "00614": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "square base with hole"
+   ],
+   "main_instruction": "Insert the round pin into the square base with hole."
+  },
+  "00615": {
+   "action": "slide onto",
+   "target_categories": [
+    "keyed sleeve",
+    "twin post"
+   ],
+   "main_instruction": "Slide the keyed sleeve onto the twin post."
+  },
+  "00638": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "00648": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "ring"
+   ],
+   "main_instruction": "Insert the round pin into the ring."
+  },
+  "00659": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the round pin into the disc with hole."
+  },
+  "00681": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "flanged socket"
+   ],
+   "main_instruction": "Insert the round pin into the flanged socket."
+  },
+  "00686": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "00726": {
+   "action": "slide onto",
+   "target_categories": [
+    "split sleeve",
+    "square post"
+   ],
+   "main_instruction": "Slide the split sleeve onto the square post."
+  },
+  "00731": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "triangular base"
+   ],
+   "main_instruction": "Insert the round pin into the triangular base."
+  },
+  "00741": {
+   "action": "slide onto",
+   "target_categories": [
+    "block with hole",
+    "block with post"
+   ],
+   "main_instruction": "Slide the block with hole onto the block with post."
+  },
+  "00755": {
+   "action": "insert",
+   "target_categories": [
+    "splined shaft",
+    "splined socket"
+   ],
+   "main_instruction": "Insert the splined shaft into the splined socket."
+  },
+  "00768": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "post"
+   ],
+   "main_instruction": "Slide the sleeve onto the post."
+  },
+  "00783": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "spoked wheel"
+   ],
+   "main_instruction": "Insert the round pin into the spoked wheel."
+  },
+  "00831": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the round pin into the disc with hole."
+  },
+  "00855": {
+   "action": "insert",
+   "target_categories": [
+    "star plug",
+    "u-cradle"
+   ],
+   "main_instruction": "Insert the star plug into the u-cradle."
+  },
+  "00860": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with two holes"
+   ],
+   "main_instruction": "Insert the round pin into the block with two holes."
+  },
+  "00863": {
+   "action": "slide onto",
+   "target_categories": [
+    "toothed ring",
+    "block with post"
+   ],
+   "main_instruction": "Slide the toothed ring onto the block with post."
+  },
+  "01026": {
+   "action": "slide onto",
+   "target_categories": [
+    "sleeve",
+    "disc with post"
+   ],
+   "main_instruction": "Slide the sleeve onto the disc with post."
+  },
+  "01029": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "u-cradle"
+   ],
+   "main_instruction": "Insert the round pin into the u-cradle."
+  },
+  "01041": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "gear base"
+   ],
+   "main_instruction": "Insert the round pin into the gear base."
+  },
+  "01053": {
+   "action": "slide onto",
+   "target_categories": [
+    "dumbbell sleeve",
+    "block with post"
+   ],
+   "main_instruction": "Slide the dumbbell sleeve onto the block with post."
+  },
+  "01092": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "01102": {
+   "action": "insert",
+   "target_categories": [
+    "dumbbell pin",
+    "cup"
+   ],
+   "main_instruction": "Insert the dumbbell pin into the cup."
+  },
+  "01125": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "round socket"
+   ],
+   "main_instruction": "Insert the round pin into the round socket."
+  },
+  "01129": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "disc with hole"
+   ],
+   "main_instruction": "Insert the round pin into the disc with hole."
+  },
+  "01132": {
+   "action": "insert",
+   "target_categories": [
+    "round pin",
+    "block with hole"
+   ],
+   "main_instruction": "Insert the round pin into the block with hole."
+  },
+  "01136": {
+   "action": "insert",
+   "target_categories": [
+    "square-base pin",
+    "ring"
+   ],
+   "main_instruction": "Insert the square-base pin into the ring."
+  }
+ }
+}

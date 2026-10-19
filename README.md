@@ -102,6 +102,15 @@ Episodes washed out by strong light are filtered automatically (first-frame tabl
 Depth is a sidecar under `sensors/depth/` (uint16 mm, chunked zstd). Read it with [`read_depth.py`](roboassemblybench/scripts/data_pipeline/read_depth.py).
 `meta/diversity/` holds calibrations, per-episode environments, per-episode generation records and per-frame camera poses.
 
+## Instruction labels
+
+All 85 tasks share one action family (put a plug into or onto a socket), so the instruction label is assigned per task:
+an action category plus target categories `[plug, socket]` from a controlled vocabulary.
+
+- [`label_crops.py`](roboassemblybench/scripts/data_pipeline/label_crops.py) cuts 4 close-ups per task (plug and socket, side view of the mating, two wrist frames).
+- [`vl_label.py`](roboassemblybench/scripts/data_pipeline/vl_label.py) asks a vision-language model (OpenAI-compatible API, `LLMAPI_*` settings) three times per task with the images shuffled.
+- The majority answers were mapped to a controlled vocabulary and reviewed by hand: [`examples/instruction_labels_automate_fullproc_20261004.json`](examples/instruction_labels_automate_fullproc_20261004.json). 2 actions × 25 plug × 35 socket categories give 55 distinct labels (5.36 bit).
+
 ## Quick start
 
 Requirements: Isaac Sim 5.1, Isaac Lab 2.3.2 (Python 3.11), rl_games, ffmpeg; pyarrow ≥ 17 for the exporter.
